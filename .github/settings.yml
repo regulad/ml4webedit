@@ -1,0 +1,6 @@
+# Repository settings, applied by the Settings app: https://github.com/repository-settings/app
+repository:
+  name: ml4webedit
+  description: "Toggle Hard Mode on an existing Mario & Luigi: Dream Team (3DS) save, right in the browser."
+  homepage: https://ml4webedit.vercel.app
+  topics: mario-and-luigi, dream-team, nintendo-3ds, 3ds, save-editor, hard-mode, azahar, citra, reverse-engineering, react, vite, typescript

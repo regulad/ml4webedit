@@ -23,4 +23,4 @@ npm run build   # type-check + production build into dist/
 
 ## Deploying to Vercel
 
-Import the repository in Vercel (or run `npx vercel` here). It detects Vite automatically: build command `npm run build`, output directory `dist`. No extra configuration is needed.
+Import the repository in Vercel (or run `npx vercel` here). Build settings are pinned in the repo rather than left to auto-detection: `vercel.json` sets the Vite preset, `npm ci` as the install command, `npm run build`, and `dist` as the output directory, and `engines.node` in `package.json` pins Node 24.x. These override whatever is set in the Vercel dashboard.

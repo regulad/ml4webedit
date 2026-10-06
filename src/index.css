@@ -242,3 +242,26 @@ button {
 .help p {
   margin: 0;
 }
+
+.site-footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  vertical-align: bottom;
+  color: var(--accent);
+  font-family: ui-monospace, 'Cascadia Code', Menlo, monospace;
+}
+
+.site-footer svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+}

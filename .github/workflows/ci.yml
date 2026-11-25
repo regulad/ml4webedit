@@ -27,5 +27,12 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npx tsc
+      # tsc's own cache, so each run checks only what changed. The key moves with every commit, so each run saves its
+      # state, and restores the newest state saved with the same lockfile and config.
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache
+          key: check-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tsconfig.json') }}-${{ github.sha }}
+          restore-keys: check-${{ runner.os }}-${{ hashFiles('package-lock.json', 'tsconfig.json') }}-
+      - run: npx tsc --incremental --tsBuildInfoFile .cache/tsc/tsbuildinfo
       - run: npm test

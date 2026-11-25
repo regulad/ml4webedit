@@ -39,10 +39,11 @@ branches:
         # Off: Dependabot doesn't rebase a PR just because main moved, so a stale PR would never merge.
         strict: false
         # Required. The list of status checks to require in order to merge into this branch
-        # Vercel's commit status for the pull request's preview deployment, from its Git integration; there is no
-        # GitHub Actions CI.
+        # Vercel's commit status for the pull request's preview deployment, from its Git integration, and
+        # workflows/ci.yml's job.
         contexts:
           - Vercel
+          - Type-check and test
       # Required. Enforce all configured restrictions for administrators. Set to true to enforce required status checks for repository administrators. Set to null to disable.
       # Off: admins still push to main directly, which deploys.
       enforce_admins: false

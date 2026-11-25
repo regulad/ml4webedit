@@ -1,11 +1,11 @@
 name: Dependabot auto-merge
 
-# Turns on GitHub's auto-merge for Dependabot's pull requests that hold no major update and touch no GitHub Actions:
-# the npm group's minor and patch updates (see dependabot.yml), and security updates, which skip the cooldown and come
-# as a group of their own (npm_and_yarn) or one at a time. GitHub then merges each one once Vercel's preview build, the
-# required check (.github/settings.yml), passes, and the merge's push to main deploys through Vercel's Git integration.
-# Major updates and the GitHub Actions ecosystem's updates wait for a person. For a group, update-type is its largest
-# update, so a security group carrying a major one waits too.
+# Turns on GitHub's auto-merge for Dependabot's pull requests that hold no major update and touch no GitHub Actions: the
+# npm group's minor and patch updates (see dependabot.yml), and security updates, which skip the cooldown and come as a
+# group of their own (npm_and_yarn) or one at a time. GitHub then merges each one once Vercel's preview build and
+# workflows/ci.yml, the required checks (.github/settings.yml), pass, and the merge's push to main deploys through
+# Vercel's Git integration. Major updates and the GitHub Actions ecosystem's updates wait for a person. For a group,
+# update-type is its largest update, so a security group carrying a major one waits too.
 #
 # Auto-merge is turned on with the DEPENDABOT_MERGE_TOKEN secret, not GITHUB_TOKEN. GitHub credits the merge to whoever
 # turned auto-merge on, and starts no workflows for a push credited to GITHUB_TOKEN: none runs on a push here today, but
@@ -43,7 +43,7 @@ jobs:
             echo "::error::${BASE} requires no status checks, so auto-merge would merge this pull request unchecked. Restore the protection .github/settings.yml declares."
             exit 1
           fi
-      - name: Merge once Vercel's build passes
+      - name: Merge once the required checks pass
         if: >-
           steps.metadata.outputs.update-type != 'version-update:semver-major'
           && steps.metadata.outputs.package-ecosystem != 'github_actions'

@@ -1,0 +1,31 @@
+name: CI
+
+# The checks a pull request must pass besides Vercel's preview build (.github/settings.yml's required checks): the
+# TypeScript type-check and the vitest tests. Vercel's build runs only the build script, and a Vite build neither
+# lints nor tests.
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Type-check and test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # Node 24, package.json's engines and what Vercel builds the site with.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx tsc
+      - run: npm test

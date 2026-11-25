@@ -1,8 +1,8 @@
 name: CI
 
-# The checks a pull request must pass besides Vercel's preview build (.github/settings.yml's required checks): the
-# TypeScript type-check and the vitest tests. Vercel's build runs only the build script, and a Vite build neither
-# lints nor tests.
+# The checks a pull request must pass besides Vercel's preview build (.github/settings.yml's required checks): oxlint,
+# with create-vite's React and TypeScript template's .oxlintrc.json, the TypeScript type-check and the vitest tests.
+# Vercel's build runs only the build script, and a Vite build neither lints nor tests.
 on:
   pull_request:
     branches: ["main"]
@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   check:
-    name: Type-check and test
+    name: Lint, type-check and test
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -27,6 +27,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # oxlint is fast enough to need no cache.
+      - run: npm run lint
       # tsc's own cache, so each run checks only what changed. The key moves with every commit, so each run saves its
       # state, and restores the newest state saved with the same lockfile and config.
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0

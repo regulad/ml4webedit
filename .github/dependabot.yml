@@ -1,0 +1,38 @@
+# Dependabot keeps every pinned version current: the app's npm packages, in package-lock.json, and GitHub Actions.
+#
+# Each ecosystem gets one PR a week grouping its minor and patch updates. workflows/dependabot-auto-merge.yml has GitHub
+# merge the npm group, and security updates, once Vercel's preview build passes, and a merge to main deploys. These wait
+# for a person:
+# - the actions group, since workflow changes get a review;
+# - major updates, which come as PRs of their own.
+#
+# The cooldown holds each release back until it is two weeks old, so nothing ships while it's days old. Security updates
+# skip it.
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:00"
+      timezone: "America/New_York"
+    cooldown:
+      default-days: 14
+    groups:
+      npm:
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:00"
+      timezone: "America/New_York"
+    cooldown:
+      default-days: 14
+    groups:
+      actions:
+        update-types: ["minor", "patch"]

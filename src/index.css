@@ -251,6 +251,10 @@ button {
   text-align: center;
 }
 
+.site-footer p {
+  margin: 0.3rem 0;
+}
+
 .site-footer a {
   display: inline-flex;
   align-items: center;

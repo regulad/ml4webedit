@@ -1,7 +1,7 @@
 {
   "name": "ml4webedit",
   "private": true,
-  "version": "0.1.0",
+  "version": "2026.11.26",
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "engines": {
@@ -15,10 +15,12 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@sentry/react": "^11.19.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@sentry/vite-plugin": "^11.19.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",

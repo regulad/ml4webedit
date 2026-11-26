@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { countDownload } from './diagnostics.ts'
 import { isHardMode, slotIndex, validateSave, withHardMode } from './save.ts'
 
 type LoadedSave = { name: string; bytes: Uint8Array }
@@ -48,13 +49,15 @@ export default function App() {
 
   function download() {
     if (!save) return
-    const blob = new Blob([withHardMode(save.bytes, hard)], { type: 'application/octet-stream' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = save.name
-    a.click()
-    URL.revokeObjectURL(url)
+    countDownload(() => {
+      const blob = new Blob([withHardMode(save.bytes, hard)], { type: 'application/octet-stream' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = save.name
+      a.click()
+      URL.revokeObjectURL(url)
+    })
   }
 
   const original = save ? isHardMode(save.bytes) : false
@@ -179,12 +182,33 @@ export default function App() {
       </section>
 
       <footer className="site-footer">
-        Made by{' '}
-        <a href="https://github.com/regulad" target="_blank" rel="noreferrer">
-          <GitHubMark />
-          regulad
-        </a>{' '}
-        with Claude Opus 5.5
+        <p>
+          Made by{' '}
+          <a href="https://github.com/regulad" target="_blank" rel="noreferrer">
+            <GitHubMark />
+            regulad
+          </a>{' '}
+          with Claude Opus 5.5
+        </p>
+        <p>
+          <a
+            href="https://github.com/regulad/ml4webedit/blob/main/PRIVACY.md"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Privacy policy
+          </a>
+        </p>
+        <p>
+          Free software under the{' '}
+          <a
+            href="https://github.com/regulad/ml4webedit/blob/main/LICENSE.md"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GNU AGPLv3
+          </a>
+        </p>
       </footer>
     </main>
   )

@@ -9,9 +9,12 @@
 // Track or Global Privacy Control gets none of it.
 import * as Sentry from '@sentry/react'
 
-// ml4webedit's project in Sentry, made by regulad/homelab's tofu/sentry. A DSN only lets a client send events, so it is
-// no secret.
-const dsn = 'https://81fe0d5b619b92d3b544e39aee7c69a2@o4506961510596608.ingest.us.sentry.io/4512500406353920'
+// ml4webedit's project in Sentry, made by regulad/homelab's tofu/sentry: VITE_SENTRY_DSN, which homelab's tofu/vercel
+// sets from tofu/sentry's output and Vite writes in at build time, or the same DSN by default. A DSN only lets a client
+// send events, so it is no secret.
+const dsn =
+  import.meta.env.VITE_SENTRY_DSN ||
+  'https://81fe0d5b619b92d3b544e39aee7c69a2@o4506961510596608.ingest.us.sentry.io/4512500406353920'
 
 // Header and query parameter names that carry client addresses.
 const addressTerms = ['forwarded', '-ip', 'remote-', 'via', '-user']
